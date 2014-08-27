@@ -1,0 +1,89 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function() {
+    var addDiv = $('#addinput');
+    var i = 1;
+
+    $('#addNew').live('click', function() {
+      $('<input type="text" class="input-block-level" name="guest' + i +'" placeholder="Guest Number">').appendTo(addDiv);
+      i++;
+
+      return false;
+    });
+
+    $('input.a').live('keydown', function(e) { 
+      var keyCode = e.keyCode || e.which; 
+
+      if (keyCode == 9) { 
+          $('<input type="text" class="a input-block-level" name="guest' + i +'" placeholder="Guest Number">').appendTo(addDiv);
+          i++;
+      } 
+    });
+  });
+
+</script>
+</head>
+
+<style type="text/css">
+      body {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #f5f5f5;
+      }
+
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],
+      .form-signin input[type="password"] {
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+
+    </style>
+
+<div class="alert">
+    <strong>Event Created!</strong> We're texting your guests for responses now.
+</div>
+
+<div class="container">
+      <form class="form-signin" method="post" name="create" action="{{ url_for('create') }}">
+        <h2 class="form-signin-heading">Create an Event</h2>
+        <input type="text" class="input-block-level" placeholder="Your Name" name="host_name" required>
+        <input type="text" class="input-block-level" placeholder="Your Number"name="host_number" required>
+        <input type="text" class="input-block-level" placeholder="Name your event" name="title" required>
+        <input type="text" class="input-block-level" placeholder="Time"name="time">
+        <input type="text" class="input-block-level" placeholder="Location"name="location">
+        <input type="text" class="input-block-level" placeholder="Details (Optional)"name="details">
+        <input type="text" class="input-block-level" placeholder="Limit (Minimum # of people to accept)"name="limit" required>
+        <div id = "addinput">
+          <input type="text" class="input-block-level" placeholder="Guest Phone Number"name="guest0" required>
+        </div>
+        <button class="btn btn-large btn-primary" type="button" id="addNew">Add Number</button>
+        <button class="btn btn-large btn-primary" type="submit">Create Event</button>
+      </form>
+
+    </div> <!-- /container -->
+
+{% endblock %}
